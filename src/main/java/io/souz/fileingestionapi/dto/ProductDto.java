@@ -12,7 +12,7 @@ public record ProductDto(
         BigDecimal value
 ) {
 
-    public static Set<ProductDto> mapFromProducts(Set<OrderProduct> orderProducts) {
+    public static Set<ProductDto> fromProducts(Set<OrderProduct> orderProducts) {
         return orderProducts.stream()
                 .map(op -> new ProductDto(
                         op.getProduct().getId(),

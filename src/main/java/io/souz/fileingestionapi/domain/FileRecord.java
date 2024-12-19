@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Getter
-public class Record {
+public class FileRecord {
 
     private final Long userId;
     private final String name;
@@ -16,7 +16,7 @@ public class Record {
     private final BigDecimal productValue;
     private final LocalDate date;
 
-    public Record(String data) {
+    public FileRecord(String data) {
         String[] fields = data.split("\\s{2,}");
 
         this.userId = Long.parseLong(fields[0]);

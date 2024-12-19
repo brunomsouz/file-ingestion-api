@@ -13,18 +13,18 @@ public record OrderDto(
         LocalDate date,
         Set<ProductDto> products) {
 
-    public static Set<OrderDto> mapFromOrders(Set<Order> orders) {
+    public static Set<OrderDto> fromOrders(Set<Order> orders) {
         return orders.stream()
-                .map(OrderDto::mapFromOrder)
+                .map(OrderDto::fromOrder)
                 .collect(Collectors.toSet());
     }
 
-    public static OrderDto mapFromOrder(Order order) {
+    public static OrderDto fromOrder(Order order) {
         return new OrderDto(
                 order.getId(),
                 order.getTotal().toString(),
                 order.getDate(),
-                ProductDto.mapFromProducts(order.getProducts())
+                ProductDto.fromProducts(order.getProducts())
         );
     }
 

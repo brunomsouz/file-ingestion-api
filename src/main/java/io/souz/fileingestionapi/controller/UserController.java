@@ -1,6 +1,5 @@
 package io.souz.fileingestionapi.controller;
 
-import io.souz.fileingestionapi.domain.User;
 import io.souz.fileingestionapi.dto.UserDto;
 import io.souz.fileingestionapi.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +18,9 @@ public class UserController implements BaseController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDto> findUserById(@PathVariable Long id) {
-        User user = this.userService.findUserById(id);
+        UserDto user = this.userService.findUserById(id);
 
-        return ResponseEntity.ok(UserDto.mapFromUser(user));
+        return ResponseEntity.ok(user);
     }
 
 }

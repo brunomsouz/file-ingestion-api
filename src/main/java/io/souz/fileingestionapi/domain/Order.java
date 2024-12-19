@@ -35,10 +35,9 @@ public class Order {
         this.total = total;
     }
 
-    public void addProducts(Set<OrderProduct> orderProducts) {
-        this.products.addAll(orderProducts);
+    public void addProduct(OrderProduct product) {
+        this.products.add(product);
     }
-
 }
 
 

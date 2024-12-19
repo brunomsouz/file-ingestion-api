@@ -19,8 +19,8 @@ public class FileIngestionController implements BaseController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
-        if (!"text/plain".equals(file.getContentType())) {
-            throw new BadRequestException("invalid.type");
+        if (file == null || file.isEmpty() || !"text/plain".equals(file.getContentType())) {
+            throw new BadRequestException("invalid.file");
         }
 
         this.fileIngestionService.processFile(file);

@@ -1,7 +1,7 @@
 package io.souz.fileingestionapi.controller;
 
-import io.souz.fileingestionapi.domain.Order;
 import io.souz.fileingestionapi.dto.OrderDto;
+import io.souz.fileingestionapi.exception.BadRequestException;
 import io.souz.fileingestionapi.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +23,21 @@ public class OrderController implements BaseController {
 
     @GetMapping("/order/{id}")
     public ResponseEntity<OrderDto> findOrderById(@PathVariable Long id) {
-        Order order = this.orderService.findOrderById(id);
+        OrderDto order = this.orderService.findOrderById(id);
 
-        return ResponseEntity.ok(OrderDto.mapFromOrder(order));
+        return ResponseEntity.ok(order);
     }
 
     @GetMapping("/order")
-    public ResponseEntity<Set<OrderDto>> findOrders(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
-        Set<Order> orders = this.orderService.findOrders(startDate, endDate);
+    public ResponseEntity<Set<OrderDto>> findOrders(@RequestParam(required = false) LocalDate startDate,
+                                                    @RequestParam(required = false) LocalDate endDate) {
+        if ((startDate != null && endDate != null) && endDate.isBefore(startDate)) {
+            throw new BadRequestException("invalid.date.range");
+        }
 
-        return ResponseEntity.ok(OrderDto.mapFromOrders(orders));
+        Set<OrderDto> orders = this.orderService.findOrders(startDate, endDate);
+
+        return ResponseEntity.ok(orders);
     }
 
 }

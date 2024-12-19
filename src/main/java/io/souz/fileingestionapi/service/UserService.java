@@ -1,6 +1,7 @@
 package io.souz.fileingestionapi.service;
 
 import io.souz.fileingestionapi.domain.User;
+import io.souz.fileingestionapi.dto.UserDto;
 import io.souz.fileingestionapi.exception.NotFoundException;
 import io.souz.fileingestionapi.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User findUserById(Long id) {
-        return this.userRepository.findUserById(id)
+    public UserDto findUserById(Long id) {
+        User user = this.userRepository.findUserById(id)
                 .orElseThrow(() -> new NotFoundException("user.not.found"));
+
+        return UserDto.fromUser(user);
     }
 
 }

@@ -24,13 +24,13 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<Order> orders = new HashSet<>();
 
-    public void addOrders(Set<Order> orders) {
-        this.orders.addAll(orders);
-    }
-
     public User(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public void addOrder(Order order) {
+        this.orders.add(order);
     }
 
 }

@@ -1,6 +1,7 @@
 package io.souz.fileingestionapi.service;
 
 import io.souz.fileingestionapi.domain.Order;
+import io.souz.fileingestionapi.dto.OrderDto;
 import io.souz.fileingestionapi.exception.NotFoundException;
 import io.souz.fileingestionapi.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,17 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public Order findOrderById(Long id) {
-        return this.orderRepository.getOrderById(id)
+    public OrderDto findOrderById(Long id) {
+        Order order = this.orderRepository.getOrderById(id)
                 .orElseThrow(() -> new NotFoundException("order.not.found"));
+
+        return OrderDto.fromOrder(order);
     }
 
-    public Set<Order> findOrders(LocalDate startDate, LocalDate endDate) {
-        return this.orderRepository.findOrdersByDateRange(startDate, endDate);
+    public Set<OrderDto> findOrders(LocalDate startDate, LocalDate endDate) {
+        Set<Order> orders = this.orderRepository.findOrdersByDateRange(startDate, endDate);
+
+        return OrderDto.fromOrders(orders);
     }
 
 }

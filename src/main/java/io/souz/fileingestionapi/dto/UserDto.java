@@ -11,11 +11,11 @@ public record UserDto(
         Set<OrderDto> orders
 ) {
 
-    public static UserDto mapFromUser(User user) {
+    public static UserDto fromUser(User user) {
         return new UserDto(
                 user.getId(),
                 user.getName(),
-                OrderDto.mapFromOrders(user.getOrders()));
+                OrderDto.fromOrders(user.getOrders()));
     }
 
 }
