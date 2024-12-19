@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "491b4c86-4952-4441-9cf7-4a6263c829e1",
+		"name": "file-ingestion-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16608592"
+	},
+	"item": [
+		{
+			"name": "/upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/brunomsouz/Downloads/Desafiotecnico-VerticalLogistica/data_1.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{file-ingestion-api-uri}}/v1/upload",
+					"host": [
+						"{{file-ingestion-api-uri}}"
+					],
+					"path": [
+						"v1",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{file-ingestion-api-uri}}/v1/user/:id",
+					"host": [
+						"{{file-ingestion-api-uri}}"
+					],
+					"path": [
+						"v1",
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"description": "Type long i.e. 1, 2, 3 etc."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{file-ingestion-api-uri}}/v1/order?startDate=2021-03-08&endDate=2021-03-07",
+					"host": [
+						"{{file-ingestion-api-uri}}"
+					],
+					"path": [
+						"v1",
+						"order"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2021-03-08",
+							"description": "ISO date, ex.: 2021-09-08"
+						},
+						{
+							"key": "endDate",
+							"value": "2021-03-07",
+							"description": "ISO date, ex.: 2021-10-08"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/order/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{file-ingestion-api-uri}}/v1/order/:id",
+					"host": [
+						"{{file-ingestion-api-uri}}"
+					],
+					"path": [
+						"v1",
+						"order",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "500",
+							"description": "Type long i.e. 1, 2, 3 etc."
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
