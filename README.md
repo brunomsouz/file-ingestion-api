@@ -10,7 +10,7 @@ Um swagger foi disponibilizado na raíz do projeto contendo uma relação dos en
 
 O design da aplicação foi feito com base na arquitetura em camadas; temos 4 camadas "principais":
 
-- Controller: lida com requests e suas respostas, fazendo validações básicas e passando os dados necessários para as services;
+- Controller: lida com requisições e suas respostas, fazendo validações de dados básicas e repassando os estes para a camada Service;
 - Service: contém a lógica principal do negócio (como a ingestão/transformação do arquivo em si e lógica para buscas);
 - Repository: faz a manipulação dos dados, como persistência e busca;
 - Domain: representa as entidades principais para as regras (User, Order, Product, etc.).
@@ -30,7 +30,7 @@ O design da aplicação foi feito com base na arquitetura em camadas; temos 4 ca
 - Banco relacional MySQL devido aos relacionamentos existentes entre os dados (um user possui várias orders, que por sua vez possuem vários products atrelados)
 - Docker
 
-## Para build e utilização do projeto
+## Build e utilização do projeto
 
 ### Clonagem do repositório
 
@@ -40,7 +40,7 @@ cd file-ingestion-api
 ```
 
 ### Docker
-Para facilitar, disponibilizei um Dockerfile aliado de um docker-compose.yaml, que automatiza o build do projeto e já faz o deploy da app junto de um container do MySQL dentro de uma network. Caso queira subir somente a app, atente-se às configurações de rede para permitir comunicação entre os containers.
+Para facilitar a execução do projeto, foi disponibilizado no repositório um Dockerfile aliado a um docker-compose.yaml, que automatiza o build do projeto e já faz o deploy da app junto de um container do MySQL dentro de uma network. Caso queira subir somente a app, atente-se às configurações de rede para permitir comunicação entre os containers.
 
 ```sh
 docker-compose up -d
