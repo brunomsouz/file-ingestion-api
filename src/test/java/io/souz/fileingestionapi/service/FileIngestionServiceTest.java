@@ -1,7 +1,7 @@
 package io.souz.fileingestionapi.service;
 
 import io.souz.fileingestionapi.domain.Product;
-import io.souz.fileingestionapi.exception.InternalServerError;
+import io.souz.fileingestionapi.exception.BadRequestException;
 import io.souz.fileingestionapi.repository.ProductRepository;
 import io.souz.fileingestionapi.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +46,7 @@ class FileIngestionServiceTest {
     @Test
     void processFileWithInvalidData() {
         MultipartFile file = new MockMultipartFile("file", "data.txt", "text/plain", "invalid data".getBytes());
-        assertThrows(InternalServerError.class, () -> fileIngestionService.processFile(file));
+        assertThrows(BadRequestException.class, () -> fileIngestionService.processFile(file));
 
         verify(userRepository, never()).saveAll(anyCollection());
         verify(productRepository, never()).findProductById(anyLong());
