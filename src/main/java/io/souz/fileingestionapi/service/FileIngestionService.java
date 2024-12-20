@@ -1,6 +1,7 @@
 package io.souz.fileingestionapi.service;
 
 import io.souz.fileingestionapi.domain.*;
+import io.souz.fileingestionapi.exception.BadRequestException;
 import io.souz.fileingestionapi.exception.InternalServerError;
 import io.souz.fileingestionapi.repository.ProductRepository;
 import io.souz.fileingestionapi.repository.UserRepository;
@@ -39,10 +40,8 @@ public class FileIngestionService {
                         Long orderId = fileRecord.getOrderId();
                         Long productId = fileRecord.getProductId();
 
-                        User user = userMap.computeIfAbsent(userId, id -> {
-                            String username = fileRecord.getName();
-                            return new User(id, username);
-                        });
+                        User user = userMap.computeIfAbsent(userId, id -> this.userRepository.findUserById(userId)
+                                .orElse(new User(userId, fileRecord.getName())));
 
                         Order order = user.getOrders().stream()
                                 .filter(o -> o.getId().equals(orderId))
@@ -71,8 +70,11 @@ public class FileIngestionService {
                     });
 
             this.userRepository.saveAll(userMap.values());
-        } catch (Exception e) {
-            log.error(e.getMessage());
+        } catch (IllegalArgumentException ex) {
+            log.error(ex.getMessage());
+            throw new BadRequestException("invalid.file.content");
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
             throw new InternalServerError("file.ingestion.error");
         }
     }
